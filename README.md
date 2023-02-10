@@ -1,7 +1,5 @@
 # Movie Buff
 
-Foobar is a Python library for dealing with word pluralization.
-
 ## Installation
 
 To start using the application, first clone the project:
