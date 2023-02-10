@@ -18,7 +18,6 @@ export const HomeStackNavigator = () => {
       }}>
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} />
-
     </Drawer.Navigator>
   );
 };
