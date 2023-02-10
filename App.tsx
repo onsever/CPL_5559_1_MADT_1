@@ -5,7 +5,7 @@ import {HomeStackNavigator} from './src/navigators/HomeStackNavigator';
 
 export default function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentUser, setCurrentUser] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState("Vergel");
 
   // Check if user is logged in.
   React.useEffect(() => {}, [currentUser]);
