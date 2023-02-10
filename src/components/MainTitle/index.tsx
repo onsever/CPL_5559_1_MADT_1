@@ -1,11 +1,21 @@
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
 import React from 'react';
+import {TextProps} from 'react-native';
+import {styles} from './styles';
 
-const MainTitle = () => {
+interface MainTitleProps extends TextProps {
+  title: string;
+  color?: string;
+  fontSize?: number;
+}
+
+const MainTitle: React.FC<MainTitleProps> = props => {
   return (
-    <View>
-      <Text>MainTitle</Text>
-    </View>
+    <Text
+      {...props}
+      style={[styles.title, {color: props.color, fontSize: props.fontSize}]}>
+      {props.title}
+    </Text>
   );
 };
 

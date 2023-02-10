@@ -1,3 +1,9 @@
 import {StyleSheet} from 'react-native';
 
-export const styles = StyleSheet.create({});
+export const styles = StyleSheet.create({
+  title: {
+    fontSize: 34,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+});
