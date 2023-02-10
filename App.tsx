@@ -4,6 +4,7 @@ import {AuthStackNavigator} from './src/navigators/AuthStackNavigator';
 import {HomeStackNavigator} from './src/navigators/HomeStackNavigator';
 
 export default function App() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentUser, setCurrentUser] = React.useState(null);
 
   // Check if user is logged in.
