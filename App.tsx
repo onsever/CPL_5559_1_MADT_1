@@ -2,6 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {AuthStackNavigator} from './src/navigators/AuthStackNavigator';
 import {TabBarNavigator} from './src/navigators/TabBarNavigator';
+import {HomeStackNavigator} from './src/navigators/HomeStackNavigator';
 
 export default function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -11,7 +12,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      {currentUser ? <TabBarNavigator /> : <AuthStackNavigator />}
+      {currentUser ? <HomeStackNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }
