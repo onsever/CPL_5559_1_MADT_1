@@ -18,6 +18,7 @@ export const TabBarNavigator = () => {
         component={HomeStackNavigator}
         options={{
           title: 'Home',
+          headerShown: false,
         }}
       />
       <Tab.Screen
