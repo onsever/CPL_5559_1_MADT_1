@@ -39,8 +39,10 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   dateContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    paddingHorizontal: 40,
+    marginBottom: 20,
   },
 });
