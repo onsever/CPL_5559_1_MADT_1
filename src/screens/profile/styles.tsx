@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    paddingHorizontal: 40,
+    //paddingHorizontal: 40,
     marginBottom: 20,
   },
 });
