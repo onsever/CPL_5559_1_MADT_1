@@ -16,7 +16,7 @@ export const HomeStackNavigator = () => {
       screenOptions={{
         headerShown: true,
       }}>
-      <Drawer.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Main Page" component={HomeScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} />
 
     </Drawer.Navigator>

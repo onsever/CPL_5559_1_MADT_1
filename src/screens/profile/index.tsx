@@ -84,14 +84,8 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
           <View style={styles.inputContainer}>
             <Text style={styles.inputText}>Date of Birth:</Text>
             <View style={styles.dateContainer}>
-              {/* <Input
-                placeholder=""
-                value={birthDate}
-                onChangeText={setBirthDate}
-              /> */}
               <TextInput
                 style={{
-                  flex: 1,
                   backgroundColor: '#fff',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -99,11 +93,16 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
                   borderWidth: 1,
                   borderRadius: 5,
                   padding: 3,
+                  width: '85%',
                 }}
                 value={birthDate}
                 onChangeText={a => setBirthDate(a)}
               />
-              <Icon name="calendar" size={30} style={{marginLeft: 10}} />
+              <Icon
+                name="calendar"
+                size={30}
+                style={{position: 'absolute', right: 10, top: 2}}
+              />
             </View>
           </View>
         </View>
