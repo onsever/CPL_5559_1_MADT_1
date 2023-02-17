@@ -1,11 +1,14 @@
 import React from 'react';
-import HomeScreen from '../screens/home';
+import HomeScreen, {Movie} from '../screens/home';
 import ProfileScreen from '../screens/profile';
+import ReadReviewsScreen from '../screens/readreviews';
 
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 export type HomeStackNavigatorProps = {
   Home: undefined;
+  Profile: undefined;
+  ReadReviews: {movie: Movie};
 };
 
 const Drawer = createDrawerNavigator<HomeStackNavigatorProps>();
@@ -16,8 +19,9 @@ export const HomeStackNavigator = () => {
       screenOptions={{
         headerShown: true,
       }}>
-      <Drawer.Screen name="Main Page" component={HomeScreen} />
+      <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} />
+      <Drawer.Screen name="ReadReviews" component={ReadReviewsScreen} />
     </Drawer.Navigator>
   );
 };
