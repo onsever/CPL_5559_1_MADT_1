@@ -15,6 +15,7 @@ export type Movie = {
 };
 
 const HomeScreen = ({navigation}: HomeScreenProps) => {
+
   const movies: Movie[] = [
     {
       id: 1,
