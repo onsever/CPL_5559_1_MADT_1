@@ -1,28 +1,21 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Image,
-  FlatList,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, FlatList, ScrollView, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AuthStackNavigatorProps} from '../../navigators/AuthStackNavigator';
 import {styles} from './styles';
-import Input from '../../components/Input';
-import MainTitle from '../../components/MainTitle';
-import Button from '../../components/Button';
-import Colors from '../../utilities/Colors';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import MovieCard from '../../components/MovieCard';
+import {HomeStackNavigatorProps} from '../../navigators/HomeStackNavigator';
 
 type HomeScreenProps = NativeStackScreenProps<HomeStackNavigatorProps, 'Home'>;
 
+export type Movie = {
+  id: number;
+  name: string;
+  image: any;
+};
+
 const HomeScreen = ({navigation}: HomeScreenProps) => {
-  const movies = [
+  const movies: Movie[] = [
     {
       id: 1,
       name: 'Avengers',
@@ -41,6 +34,10 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
     },
   ];
 
+  const handleReadReviews = (movie: Movie) => {
+    navigation.navigate('ReadReviews', {movie});
+  };
+
   return (
     <View>
       <SafeAreaView>
@@ -52,6 +49,7 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
           <View style={styles.movieContainer}>
             <FlatList
               data={movies}
+              // @ts-ignore
               keyExtractor={item => item.id}
               renderItem={({item}) => <MovieCard movie={item} />}
               horizontal={true}
@@ -78,7 +76,9 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
             style={{
               alignItems: 'center',
             }}>
-            <TouchableOpacity style={[styles.button]}>
+            <TouchableOpacity
+              style={[styles.button]}
+              onPress={() => handleReadReviews(movies[0])}>
               <Text style={styles.buttonText}>Reviews</Text>
             </TouchableOpacity>
           </View>
