@@ -1,97 +1,36 @@
-# Movie Buff
+# Question to Ask
 
-## Installation
+// Fetching Data Questions
+1. Where should we fetch the data? (In which component?)
+    - Whenever user logs in to application, it will go the Home Screen. (We want we fetch.) -> List of Movies
+2. When should we fetch the data? (Whenever component get loads)
+    - Whenever Home Screen is loaded.
+3. How should we fetch the data?
+    - Using axios, we can fetch the data from the API.
+    - Fetch API (fetch()) is also used to fetch the data from the API.
+    - We will use Supabase client fetching. (O)
 
-To start using the application, first clone the project:
+... after fetching the data ... => Results [99% of the time, JSON data]
+JSON: JavaScript Object Notation
 
-```bash
-git clone https://github.com/onsever/CPL_5559_1_MADT_1.git
-```
+- User clicked on Reviews page. => Reviews page is loaded.
+- Reviews page is loaded. => Reviews data is fetched.
 
-After cloning the project, install the node packages:
-
-```bash
-yarn install
-```
-
-## Usage
-
-To run React Native CLI project, please create two different terminal instances.
-
-Inside the first terminal instance, run:
-
-```bash
-yarn start
-```
-
-Inside the second terminal instance, select which platform you want to run the application on. To run on iOS device:
-
-First, install the Cocoapods dependencies by running this command:
-
-```bash
-npx pod-install
-```
-
-After you get successful message, you can run this command:
-
-```bash
-yarn ios
-```
-
-To run on Android device:
-
-```bash
-yarn android
-```
-
-## Errors and Problems
-
-### Ruby Version
-
-Sometimes, running the project can throw an error. If you are having a Ruby version problem, please check your current Ruby version on your device. By default, macOS comes with a different version (2.6.1) than this project requires. To check the Ruby version, open your Terminal on your Mac:
-
-```bash
-ruby -v
-```
-
-This project requires the Ruby version of 2.7.6. Please check the .ruby-version file.
-
-You can use Ruby Version Manager:
-[RVM](https://rvm.io/)
-
-### Running on Android
-
-If you are having any problems with running on Android, please follow these instructions:
-
-```bash
-cd android
-./gradlew clean
-npm cache clean --force
-yarn cache clean
-```
-
-Make sure you check your SDK matches the SDK of the Android Emulator. You can view the SDK version inside android/settings.gradle.
-
-```bash
-buildscript {
-    ext {
-        buildToolsVersion = "33.0.0"
-        minSdkVersion = 21
-        compileSdkVersion = 33
-        targetSdkVersion = 33
-
-        // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
-        ndkVersion = "23.1.7779620"
+```javascript
+    
+    const movie = { // JavaScript Object
+        title: 'Avengers', // title is without quotes, it's a key
+        releaseDate: '2012',
+        rating: 8.3,
+        director: 'Joss Whedon'
     }
-    repositories {
-        google()
-        mavenCentral()
+    
+    const movieJSON = { // JavaScript Object Notation (JSON)
+        "title": "Avengers", // title is with quotes, it's a string
+        "releaseDate": "2012",
+        "rating": 8.3,
+        "director": "Joss Whedon"
     }
-    dependencies {
-        classpath("com.android.tools.build:gradle:7.3.1")
-        classpath("com.facebook.react:react-native-gradle-plugin")
-    }
-}
 ```
 
-Also, make sure you have Java installed.
+// How to use fetched data?

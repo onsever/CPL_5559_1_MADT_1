@@ -8,11 +8,12 @@ import {
   removeSessionInfoFromLocal,
   setSessionInfoInLocal,
 } from './helpers/common';
-import { supabase } from "./utilities/Supabase";
+import {supabase} from './utilities/Supabase';
 
 export const AppNavigation = () => {
-  let [user, setUser] = useState(null);
+  let [user, setUser] = useState("null");
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     // check if user is logged in
@@ -23,7 +24,7 @@ export const AppNavigation = () => {
       if (status) {
         setUser(status);
       }
-    }
+    };
 
     checkSession(); // call the check session function
 
@@ -31,15 +32,13 @@ export const AppNavigation = () => {
     supabase.auth.onAuthStateChange(async (event, session) => {
       //console.log("onAuthStateChange");
       if (session && session.user) {
-        setUser(session.user)
+        setUser(session.user);
         setSessionInfoInLocal(session);
-      }
-      else {
-        setUser(null)
+      } else {
+        setUser(null);
         removeSessionInfoFromLocal();
       }
     });
-
   }, []);
 
   return (
