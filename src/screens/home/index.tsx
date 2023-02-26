@@ -1,10 +1,12 @@
 import {View, Text, FlatList, ScrollView, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {styles} from './styles';
 import MovieCard from '../../components/MovieCard';
 import {HomeStackNavigatorProps} from '../../navigators/HomeStackNavigator';
+import { getUserProfiles } from '../../store/userProfile/userProfileActions';
+import {useDispatch} from 'react-redux';
 
 type HomeScreenProps = NativeStackScreenProps<HomeStackNavigatorProps, 'Home'>;
 
@@ -15,6 +17,11 @@ export type Movie = {
 };
 
 const HomeScreen = ({navigation}: HomeScreenProps) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserProfiles());
+  });
 
   const movies: Movie[] = [
     {
