@@ -9,6 +9,7 @@ import {getUserProfiles} from '../../store/userProfile/userProfileActions';
 import {useDispatch} from 'react-redux';
 import {supabase} from '../../utilities/Supabase';
 import Movie from '../../models/Movie';
+import Video from 'react-native-video';
 
 type HomeScreenProps = NativeStackScreenProps<HomeStackNavigatorProps, 'Home'>;
 
@@ -18,12 +19,12 @@ const folderPath = 'public/movie';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const HomeScreen = ({navigation}: HomeScreenProps) => {
   const [movies, setMovies] = useState<Movie[]>([]);
-
+  const [selectedMovie, setSelectedMovie] = useState<Movie[]>();
   const dispatch = useDispatch();
 
   useEffect(() => {
     // @ts-ignore
-    dispatch(getUserProfiles());
+    //dispatch(getUserProfiles());
   });
 
   const fetchData = async () => {
@@ -66,43 +67,84 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
 
     // @ts-ignore
     setMovies(updatedMovies);
-    console.log(updatedMovies);
+    setSelectedMovie(updatedMovies[0]);
+    //console.log(updatedMovies);
   };
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        width: '100%',
-      }}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>Please select a video to view</Text>
-      </View>
+  const playVideo = movie => {
+    console.log('Movie ', movie.name);
+    console.log('Trailer ', movie.trailer);
+    setSelectedMovie(movie);
+  };
 
-      <View
-        style={{
-          flex: 1,
-          width: '100%',
-        }}>
-        <FlatList
-          data={movies}
-          // @ts-ignore
-          keyExtractor={item => item.id}
-          renderItem={({item}) => <MovieCard movie={item} />}
-          horizontal={true}
-          pagingEnabled={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            width: '100%',
-          }}
-          scrollEnabled={true}
-        />
-      </View>
-    </SafeAreaView>
+  return (
+    <View>
+      <SafeAreaView>
+        <ScrollView>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>Please select a video to view</Text>
+          </View>
+
+          <View style={styles.movieContainer}>
+            <FlatList
+              data={movies}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => (
+                <MovieCard movie={item} setSelectedMovie={playVideo} />
+              )}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>Trailer</Text>
+          </View>
+
+          <View style={styles.trailerContainer}>
+            {selectedMovie && (
+              <Video
+                key={selectedMovie?.name}
+                ref={ref => {
+                  this.player = ref;
+                }}
+                source={{uri: selectedMovie?.trailer}}
+                style={styles.backgroundVideo}
+                resizeMode={'contain'}
+                controls={true}
+                playInBackground={false}
+                playWhenInactive={false}
+                paused={false}
+              />
+            )}
+          </View>
+
+          <View style={styles.buttonWrapper}>
+            <TouchableOpacity style={[styles.button]}>
+              <Text style={styles.buttonText}>Cast & Crew</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button]}>
+              <Text style={styles.buttonText}>Synopsis</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              alignItems: 'center',
+            }}>
+            <TouchableOpacity
+              style={[styles.button]}
+              onPress={() => navigation.navigate('Read Review')}>
+              <Text style={styles.buttonText}>Reviews</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 };
 
