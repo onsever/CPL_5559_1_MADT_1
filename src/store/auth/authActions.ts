@@ -62,6 +62,7 @@ export const signUp =
             id: data.session?.user?.id,
             first_name: firstName,
             last_name: lastName,
+            image: "no-photo.png"
           }),
         );
         dispatch(loginUser(email, password));

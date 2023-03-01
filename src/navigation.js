@@ -20,7 +20,7 @@ export const AppNavigation = () => {
     // from the local storage
     const checkSession = async () => {
       let status = await getSessionInfoFromLocal();
-      //console.log("checkSession status", status);
+      //console.log("checkSession ", status);
       if (status) {
         setUser(status);
       }
@@ -30,7 +30,7 @@ export const AppNavigation = () => {
 
     // listen for auth changes
     supabase.auth.onAuthStateChange(async (event, session) => {
-      //console.log("onAuthStateChange");
+      //console.log("onAuthStateChange " + session);
       if (session && session.user) {
         setUser(session.user);
         setSessionInfoInLocal(session);
