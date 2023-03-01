@@ -138,7 +138,7 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
             }}>
             <TouchableOpacity
               style={[styles.button]}
-              onPress={() => navigation.navigate('Read Review')}>
+              onPress={() => navigation.navigate('ReadReviews', {movie : selectedMovie })}>
               <Text style={styles.buttonText}>Reviews</Text>
             </TouchableOpacity>
           </View>

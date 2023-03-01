@@ -48,4 +48,9 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.purple,
   },
+  errorText: {
+    fontSize: 14,
+    fontWeight: 'normal',
+    color: 'red',
+  },
 });
