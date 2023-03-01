@@ -1,5 +1,5 @@
-import {View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
+import React, {useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackNavigatorProps} from '../../../navigators/AuthStackNavigator';
@@ -8,6 +8,8 @@ import Input from '../../../components/Input';
 import MainTitle from '../../../components/MainTitle';
 import Button from '../../../components/Button';
 import Colors from '../../../utilities/Colors';
+import {loginUser} from '../../../store/auth/authActions';
+import {useDispatch, useSelector} from 'react-redux';
 
 type LoginScreenProps = NativeStackScreenProps<
   AuthStackNavigatorProps,
@@ -17,15 +19,20 @@ type LoginScreenProps = NativeStackScreenProps<
 const LoginScreen = ({navigation}: LoginScreenProps) => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const {error} = useSelector(state => state.authReducer);
+
+  const dispatch = useDispatch();
 
   const handleLogin = () => {
-    console.log('Username: ' + username);
-    console.log('Password: ' + password);
+    dispatch(loginUser(username, password));
   };
 
   const handleSignUp = () => {
     navigation.navigate('Register');
   };
+  useEffect(() => {
+    if (error) Alert.alert(error);
+  }, [error]);
 
   return (
     <SafeAreaView>
@@ -40,7 +47,7 @@ const LoginScreen = ({navigation}: LoginScreenProps) => {
         </View>
         <View style={styles.container}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputText}>Username:</Text>
+            <Text style={styles.inputText}>Email:</Text>
             <Input placeholder="" value={username} onChangeText={setUsername} />
           </View>
 

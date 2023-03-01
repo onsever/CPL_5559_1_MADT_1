@@ -2,8 +2,14 @@ import React from 'react';
 import HomeScreen, {Movie} from '../screens/home';
 import ProfileScreen from '../screens/profile';
 import ReadReviewsScreen from '../screens/readreviews';
-
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {logoutUser} from '../store/auth/authActions';
+import {useDispatch} from 'react-redux';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
 
 export type HomeStackNavigatorProps = {
   Home: undefined;
@@ -13,9 +19,23 @@ export type HomeStackNavigatorProps = {
 
 const Drawer = createDrawerNavigator<HomeStackNavigatorProps>();
 
+function CustomDrawerContent(props) {
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem label="Log Out" onPress={handleLogout} />
+    </DrawerContentScrollView>
+  );
+}
+
 export const HomeStackNavigator = () => {
   return (
     <Drawer.Navigator
+      drawerContent={props => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: true,
       }}>
