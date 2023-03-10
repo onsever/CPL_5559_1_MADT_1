@@ -25,4 +25,9 @@ export const styles = StyleSheet.create({
     color: 'gray',
     marginTop: 10,
   },
+  reviewsTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 10,
+  },
 });
