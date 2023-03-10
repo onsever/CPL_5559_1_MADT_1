@@ -5,7 +5,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {HomeStackNavigatorProps} from '../../navigators/HomeStackNavigator';
 import ReviewCard from '../../components/ReviewCard';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {supabase} from '../../utilities/Supabase';
+import {supabase,SUPBASE_STORAGE_URL} from '../../utilities/Supabase';
 
 type ReadReviewsScreenProps = NativeStackScreenProps<
   HomeStackNavigatorProps,
@@ -28,7 +28,7 @@ export default function ReadReviewsScreen({
     const fetchData = async () => {
       const {data: reviewData, error: reviewError} = await supabase
         .from('reviews')
-        .select('*')
+        .select(`review, profiles (first_name, last_name, image) `)
         .eq('movie_id', movie.id);
 
       if (reviewError) {
@@ -48,19 +48,19 @@ export default function ReadReviewsScreen({
     <SafeAreaView>
       <View style={styles.container}>
         <Image
-          source={require('../../../assets/movie-images/avengers.jpg')}
+          source= {{uri:movie.image}}
           style={styles.image}
         />
         <Text style={styles.title}>{movie.name}</Text>
-        <Text style={styles.description}>Release date: May 4, 2012</Text>
+        <Text style={styles.description}>Release date: {movie.release_date}</Text>
 
         <View style={styles.reviewsContainer}>
           <Text style={styles.reviewsTitle}>Reviews</Text>
           {reviews.map((review, index) => (
             <ReviewCard
               key={index}
-              image={require('../../../assets/profile.png')}
-              title={review.user_name || 'Anonymous'}
+              image= {{uri:SUPBASE_STORAGE_URL + '/profile/' + review.profiles.image}}
+              title={review.profiles.first_name + ' ' + review.profiles.last_name}
               description={review.review}
             />
           ))}

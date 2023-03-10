@@ -1,5 +1,5 @@
 import {View, Text, TextInput, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React,{useEffect} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackNavigatorProps} from '../../navigators/AuthStackNavigator';
@@ -9,6 +9,13 @@ import MainTitle from '../../components/MainTitle';
 import Button from '../../components/Button';
 import Colors from '../../utilities/Colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  getSingleUserProfile,
+  updateUserProfile,
+} from '../../store/userProfile/userProfileActions';
+import {supabase, SUPBASE_STORAGE_URL} from '../../utilities/Supabase';
+import {getSessionInfoFromLocal} from '../../helpers/common';
 
 type ProfileScreenProps = NativeStackScreenProps<
   AuthStackNavigatorProps,
@@ -19,9 +26,54 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
   const [firstname, setFirstname] = React.useState('');
   const [lastname, setLastname] = React.useState('');
   const [contact, setContact] = React.useState('');
-  const [email, setEmail] = React.useState('');
   const [birthDate, setBirthDate] = React.useState('');
+  const {selectedUserProfile, error, updatedUserProfile} = useSelector(
+    state => state.userProfileReducer,
+  );
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    const checkSession = async () => {
+      let session = await getSessionInfoFromLocal();
+      if (session) {
+        dispatch(getSingleUserProfile(session.user.id));
+      }
+    };
+    checkSession();
+  }, []);
+
+  useEffect(() => {
+    if (selectedUserProfile) {
+      setFirstname(selectedUserProfile.first_name);
+      setLastname(selectedUserProfile.last_name);
+      setContact(selectedUserProfile.contact);
+      setBirthDate(selectedUserProfile.birth_date);
+    }
+  }, [selectedUserProfile]);
+
+  useEffect(() => {
+    if (updatedUserProfile) {
+      navigation.navigate("Home");
+    }
+  }, [updatedUserProfile]);
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert(error);
+    }
+  }, [error]);
+
+  const handleSave = () => {
+    dispatch(
+      updateUserProfile({
+        id: selectedUserProfile.id,
+        first_name: firstname,
+        last_name: lastname,
+        contact: contact,
+        birth_date: birthDate
+      }),
+    );
+  };
   return (
     <SafeAreaView>
       <View style={styles.wrapper}>
@@ -38,12 +90,13 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
               fontSize: 30,
               color: Colors.purple,
             }}>
-            Welcome, User
+            Welcome, {firstname}
           </Text>
         </View>
         <View style={styles.profileContainer}>
           <Image
-            source={require('../../../assets/profile.png')}
+            //source={require('../../../assets/profile.png')}
+            source={{uri: SUPBASE_STORAGE_URL + "/profile/" + selectedUserProfile.image}}
             style={{
               resizeMode: 'contain',
               height: 100,
@@ -91,16 +144,6 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.inputText}>Email ID:</Text>
-            <Input
-              placeholder=""
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
             <Text style={styles.inputText}>Date of Birth:</Text>
             <View style={styles.dateContainer}>
               <TextInput
@@ -117,11 +160,16 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
                 value={birthDate}
                 onChangeText={a => setBirthDate(a)}
               />
+              <Icon
+                name="calendar"
+                size={30}
+                style={{position: 'absolute', right: 10, top: 2}}
+              />
             </View>
           </View>
         </View>
 
-        <Button>
+        <Button onPress={handleSave}>
           <Text style={styles.buttonText}>Save</Text>
         </Button>
       </View>
