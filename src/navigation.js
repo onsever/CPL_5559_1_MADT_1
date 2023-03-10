@@ -11,9 +11,8 @@ import {
 import {supabase} from './utilities/Supabase';
 
 export const AppNavigation = () => {
-  let [user, setUser] = useState("null");
+  let [user, setUser] = useState('null');
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     // check if user is logged in

@@ -118,16 +118,24 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
                 controls={true}
                 playInBackground={false}
                 playWhenInactive={false}
-                paused={false}
+                paused={true}
               />
             )}
           </View>
 
           <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={[styles.button]}>
+            <TouchableOpacity
+              style={[styles.button]}
+              onPress={() => {
+                navigation.navigate('CastAndCrew', {movie: selectedMovie});
+              }}>
               <Text style={styles.buttonText}>Cast & Crew</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button]}>
+            <TouchableOpacity
+              style={[styles.button]}
+              onPress={() => {
+                navigation.navigate('Synopsis', {movie: selectedMovie});
+              }}>
               <Text style={styles.buttonText}>Synopsis</Text>
             </TouchableOpacity>
           </View>
@@ -138,7 +146,9 @@ const HomeScreen = ({navigation}: HomeScreenProps) => {
             }}>
             <TouchableOpacity
               style={[styles.button]}
-              onPress={() => navigation.navigate('ReadReviews', {movie : selectedMovie })}>
+              onPress={() =>
+                navigation.navigate('ReadReviews', {movie: selectedMovie})
+              }>
               <Text style={styles.buttonText}>Reviews</Text>
             </TouchableOpacity>
           </View>
