@@ -1,17 +1,12 @@
 import React from 'react';
 import HomeScreen, {Movie} from '../screens/home';
-import ProfileScreen from '../screens/profile';
 import ReadReviewsScreen from '../screens/readreviews';
 import CastAndCrewScreen from '../screens/castandcrew';
 import SynopsisScreen from '../screens/synopsis';
-import {logoutUser} from '../store/auth/authActions';
-import {useDispatch} from 'react-redux';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
+import Header from '../components/header';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 export type HomeStackNavigatorProps = {
   Home: undefined;
@@ -21,33 +16,21 @@ export type HomeStackNavigatorProps = {
   Synopsis: {movie: Movie};
 };
 
-const Drawer = createDrawerNavigator<HomeStackNavigatorProps>();
-
-function CustomDrawerContent(props) {
-  const dispatch = useDispatch();
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
-  return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem label="Log Out" onPress={handleLogout} />
-    </DrawerContentScrollView>
-  );
-}
-
 export const HomeStackNavigator = () => {
   return (
-    <Drawer.Navigator
-      drawerContent={props => <CustomDrawerContent {...props} />}
-      screenOptions={{
-        headerShown: true,
-      }}>
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
-      <Drawer.Screen name="ReadReviews" component={ReadReviewsScreen} />
-      <Drawer.Screen name="CastAndCrew" component={CastAndCrewScreen} />
-      <Drawer.Screen name="Synopsis" component={SynopsisScreen} />
-    </Drawer.Navigator>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Home"
+        options={({navigation}) => ({
+          headerTitle: () => (
+            <Header navigation={navigation} title="Main Page" />
+          ),
+        })}
+        component={HomeScreen}
+      />
+      <Stack.Screen name="ReadReviews" component={ReadReviewsScreen} />
+      <Stack.Screen name="CastAndCrew" component={CastAndCrewScreen} />
+      <Stack.Screen name="Synopsis" component={SynopsisScreen} />
+    </Stack.Navigator>
   );
 };
