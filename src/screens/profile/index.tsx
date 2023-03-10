@@ -1,4 +1,4 @@
-import {View, Text, TextInput, Image} from 'react-native';
+import {View, Text, TextInput, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -38,7 +38,7 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
               fontSize: 30,
               color: Colors.purple,
             }}>
-            Welcome, abc
+            Welcome, User
           </Text>
         </View>
         <View style={styles.profileContainer}>
@@ -50,6 +50,25 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
               width: 100,
             }}
           />
+          <View
+            style={{
+              justifyContent: 'center',
+            }}>
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => {
+                console.log('Upload Photo');
+              }}>
+              <Text>Take Photo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => {
+                console.log('Upload Photo');
+              }}>
+              <Text>Upload Photo</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.container}>
           <View style={styles.inputContainer}>
@@ -93,15 +112,10 @@ const ProfileScreen = ({navigation}: ProfileScreenProps) => {
                   borderWidth: 1,
                   borderRadius: 5,
                   padding: 3,
-                  width: '85%',
+                  width: '100%',
                 }}
                 value={birthDate}
                 onChangeText={a => setBirthDate(a)}
-              />
-              <Icon
-                name="calendar"
-                size={30}
-                style={{position: 'absolute', right: 10, top: 2}}
               />
             </View>
           </View>

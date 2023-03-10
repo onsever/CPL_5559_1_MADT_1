@@ -45,4 +45,12 @@ export const styles = StyleSheet.create({
     //paddingHorizontal: 40,
     marginBottom: 20,
   },
+  actionButton: {
+    backgroundColor: '#ccc',
+    padding: 10,
+    borderRadius: 10,
+    width: 150,
+    alignItems: 'center',
+    marginTop: 10,
+  },
 });
