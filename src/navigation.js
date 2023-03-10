@@ -9,6 +9,7 @@ import {
   setSessionInfoInLocal,
 } from './helpers/common';
 import {supabase} from './utilities/Supabase';
+import { DrawerNavigator } from './navigators/DrawerNavigator';
 
 export const AppNavigation = () => {
   let [user, setUser] = useState('null');
@@ -42,7 +43,7 @@ export const AppNavigation = () => {
 
   return (
     <NavigationContainer>
-      {user ? <HomeStackNavigator /> : <AuthStackNavigator />}
+      {user ? <DrawerNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 };
