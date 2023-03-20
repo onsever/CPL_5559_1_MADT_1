@@ -5,7 +5,7 @@ const initialState = {
   userProfiles: [],
   selectedUserProfile: {},
   error: null,
-  updatedUserProfile: null,
+  updatedUserProfile: {},
 };
 
 function userProfileReducer(state = initialState, action) {

@@ -53,4 +53,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
+  errorText: {
+    fontSize: 14,
+    fontWeight: 'normal',
+    color: 'red',
+  },
 });
