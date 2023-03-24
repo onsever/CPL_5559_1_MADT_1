@@ -2,6 +2,8 @@ import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {HomeStackNavigator} from '../navigators/HomeStackNavigator';
 import {ProfileStackNavigator} from '../navigators/ProfileStackNavigator';
+import {MapStackNavigator} from '../navigators/MapStackNavigator';
+
 import {logoutUser} from '../store/auth/authActions';
 import {useDispatch} from 'react-redux';
 import {
@@ -38,6 +40,8 @@ export const DrawerNavigator = () => {
       screenOptions={{headerShown: false}}>
       <Drawer.Screen name="Main Page" component={HomeStackNavigator} />
       <Drawer.Screen name="Profile" component={ProfileStackNavigator} />
+      <Drawer.Screen name="Map" component={MapStackNavigator} /> 
+
     </Drawer.Navigator>
   );
 };
