@@ -3,8 +3,9 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     width: '100%',
+    marginTop: 10,
   },
   imageContainer: {
     width: 50,
@@ -17,15 +18,16 @@ export const styles = StyleSheet.create({
   },
   textContainer: {
     marginLeft: 10,
+    paddingHorizontal: 10,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: 0,
   },
   description: {
     fontSize: 16,
     color: 'gray',
-    marginTop: 10,
+    marginTop: 0,
   },
 });

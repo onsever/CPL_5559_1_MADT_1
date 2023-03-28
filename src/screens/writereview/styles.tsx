@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  reviewsContainer: {
+  reviewContainer: {
     marginTop: 10,
     paddingHorizontal: 20,
     width: '100%',
@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
   reviewsTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginVertical: 10,
+    marginTop: 10,
   },
   button: {
     width: '45%',
@@ -50,5 +50,16 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: Colors.primary,
   },
-
+  review: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor : 'gray',
+    padding: 10,
+    textAlignVertical: 'top',
+  },
+  errorText: {
+    fontSize: 14,
+    fontWeight: 'normal',
+    color: 'red',
+  },
 });
